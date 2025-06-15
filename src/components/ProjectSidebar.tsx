@@ -41,14 +41,14 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
       {/* Mobile Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-[1000] lg:hidden"
           onClick={onToggle}
         />
       )}
       
       {/* Sidebar */}
       <div className={`
-        bg-white border-r border-gray-200 transition-all duration-300 z-50
+        bg-white border-r border-gray-200 transition-all duration-300 z-[1001]
         ${isOpen 
           ? 'w-80 sm:w-96 fixed lg:relative inset-y-0 left-0' 
           : 'w-0 lg:w-12 overflow-hidden'
