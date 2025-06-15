@@ -36,12 +36,12 @@ export const MapView = ({ selectedProject, onProjectSelect }) => {
           color: '#16a34a',
           scale: 0.8
         })
-          .setLngLat([project.longitude, project.latitude])
+          .setLngLat([project.location.coordinates.lng, project.location.coordinates.lat])
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }).setHTML(
               `<div class="p-2">
                 <h3 class="font-semibold text-sm">${project.title}</h3>
-                <p class="text-xs text-gray-600">${project.location}</p>
+                <p class="text-xs text-gray-600">${project.location.county}</p>
                 <p class="text-xs font-medium text-green-600">KES ${project.budget.toLocaleString()}</p>
               </div>`
             )
