@@ -31,6 +31,40 @@ export const MapView: React.FC<MapViewProps> = ({
     return amount.toString();
   };
 
+  // Create custom icons for different project types
+  const createCustomIcon = (projectType: string, status: string) => {
+    const isNational = projectType === 'National';
+    const baseColor = isNational ? '#1e40af' : '#059669'; // Blue for national, Green for county
+    const statusColor = status === 'Active' ? baseColor : '#6b7280';
+    
+    const iconHtml = `
+      <div style="
+        width: 24px;
+        height: 24px;
+        border-radius: ${isNational ? '4px' : '50%'};
+        background-color: ${statusColor};
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: bold;
+        color: white;
+      ">
+        ${isNational ? 'N' : 'C'}
+      </div>
+    `;
+
+    return L.divIcon({
+      html: iconHtml,
+      iconSize: [24, 24],
+      iconAnchor: [12, 12],
+      popupAnchor: [0, -12],
+      className: 'custom-marker'
+    });
+  };
+
   const clearMarkers = () => {
     markers.current.forEach(marker => {
       if (map.current) {
@@ -48,13 +82,16 @@ export const MapView: React.FC<MapViewProps> = ({
     projects.forEach((project, index) => {
       console.log(`Adding marker ${index + 1} for project:`, project.title);
       
+      const customIcon = createCustomIcon(project.projectType || 'County', project.status);
+      
       const marker = L.marker([
         project.location.coordinates.lat,
         project.location.coordinates.lng
-      ]).addTo(map.current!);
+      ], { icon: customIcon }).addTo(map.current!);
 
       const statusColor = project.status === 'Active' ? '#16a34a' : '#6b7280';
       const formattedBudget = formatBudget(project.budget);
+      const projectTypeColor = project.projectType === 'National' ? '#1e40af' : '#059669';
 
       marker.bindPopup(`
         <div style="padding: 8px; font-family: system-ui, sans-serif;">
@@ -63,6 +100,9 @@ export const MapView: React.FC<MapViewProps> = ({
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
             <p style="font-size: 12px; font-weight: 500; color: #16a34a; margin: 0;">KES ${formattedBudget}</p>
             <span style="font-size: 10px; padding: 2px 6px; background-color: ${statusColor}; color: white; border-radius: 12px; font-weight: 500;">${project.status}</span>
+          </div>
+          <div style="margin-bottom: 4px;">
+            <span style="font-size: 10px; padding: 2px 6px; background-color: ${projectTypeColor}; color: white; border-radius: 12px; font-weight: 500;">${project.projectType || 'County'} Project</span>
           </div>
           ${project.source ? `<p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">Source: ${project.source}</p>` : ''}
         </div>
@@ -193,6 +233,21 @@ export const MapView: React.FC<MapViewProps> = ({
         </div>
       )}
       <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+      
+      {/* Map Legend */}
+      <div className="absolute bottom-4 left-4 bg-white p-3 rounded-lg shadow-lg border z-20">
+        <h4 className="font-semibold text-sm mb-2">Project Types</h4>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-blue-600 rounded border-2 border-white shadow-sm flex items-center justify-center text-xs text-white font-bold">N</div>
+            <span className="text-xs">National Projects</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-green-600 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-xs text-white font-bold">C</div>
+            <span className="text-xs">County Projects</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

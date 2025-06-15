@@ -17,6 +17,7 @@ export const mockProjects = [
     rating: 4.2,
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop",
     source: "Ministry of Transport",
+    projectType: "National",
     feedback: [
       {
         id: 1,
@@ -51,6 +52,7 @@ export const mockProjects = [
     rating: null,
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop",
     source: "Ministry of Water",
+    projectType: "County",
     feedback: []
   },
   {
@@ -70,6 +72,7 @@ export const mockProjects = [
     rating: 3.8,
     image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=600&fit=crop",
     source: "Kenya Ports Authority",
+    projectType: "National",
     feedback: [
       {
         id: 3,
@@ -97,6 +100,7 @@ export const mockProjects = [
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
     source: "Ministry of Energy",
+    projectType: "National",
     feedback: [
       {
         id: 4,
@@ -124,6 +128,7 @@ export const mockProjects = [
     rating: 2.1,
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop",
     source: "Ministry of Health",
+    projectType: "County",
     feedback: [
       {
         id: 5,

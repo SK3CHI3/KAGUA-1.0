@@ -1,4 +1,3 @@
-
 interface ExtractedProject {
   id: number;
   title: string;
@@ -16,6 +15,7 @@ interface ExtractedProject {
   rating: number | null;
   feedback: any[];
   source: string;
+  projectType: string;
 }
 
 // Default coordinates for Kenyan counties (approximate centers)
@@ -59,6 +59,10 @@ export function extractProjectsFromScrapedData(scrapedData: any, sourceUrl: stri
   const budgetPattern = /(?:ksh|kes|budget|cost|worth)[\s\D]*?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)\s*(?:million|billion|thousand|m|b|k)?/gi;
   const locationPattern = /(nairobi|mombasa|kisumu|nakuru|eldoret|machakos|turkana|kiambu|county)/gi;
   
+  // Keywords that suggest national vs county projects
+  const nationalKeywords = ['national', 'ministry', 'government', 'federal', 'country', 'kenya', 'republic'];
+  const countyKeywords = ['county', 'local', 'municipal', 'district'];
+  
   let projectCount = 0;
   
   // Simple extraction logic - look for lines that might contain project information
@@ -89,6 +93,18 @@ export function extractProjectsFromScrapedData(scrapedData: any, sourceUrl: stri
       const county = locationMatch ? locationMatch[0].replace('county', '').trim() : 'nairobi';
       const coordinates = COUNTY_COORDINATES[county as keyof typeof COUNTY_COORDINATES] || COUNTY_COORDINATES.default;
       
+      // Determine project type based on keywords and budget
+      let projectType = 'County';
+      const hasNationalKeywords = nationalKeywords.some(keyword => line.includes(keyword) || sourceUrl.includes(keyword));
+      const hasCountyKeywords = countyKeywords.some(keyword => line.includes(keyword));
+      
+      // Large budgets (>10B) are likely national projects
+      if (hasNationalKeywords || budget > 10000000000) {
+        projectType = 'National';
+      } else if (hasCountyKeywords) {
+        projectType = 'County';
+      }
+      
       // Generate project title from line (take first reasonable part)
       let title = line.split('.')[0].split(',')[0].trim();
       title = title.length > 5 ? title : `Project from ${sourceUrl}`;
@@ -116,7 +132,8 @@ export function extractProjectsFromScrapedData(scrapedData: any, sourceUrl: stri
         contractor: 'TBD',
         rating: Math.random() > 0.5 ? Math.round((Math.random() * 3 + 2) * 10) / 10 : null,
         feedback: [],
-        source: sourceUrl
+        source: sourceUrl,
+        projectType
       };
       
       projects.push(project);
