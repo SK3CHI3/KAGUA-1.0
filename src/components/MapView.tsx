@@ -5,14 +5,6 @@ import 'leaflet/dist/leaflet.css';
 import { mockProjects } from '@/data/mockProjects';
 import { MapPin } from 'lucide-react';
 
-// Fix for default markers in Leaflet
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-});
-
 interface MapViewProps {
   selectedProject: any;
   onProjectSelect: (project: any) => void;
@@ -24,9 +16,11 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
   const [isMapInitialized, setIsMapInitialized] = useState(false);
 
   const initializeMap = () => {
-    if (!mapContainer.current) return;
+    if (!mapContainer.current || map.current) return;
 
     try {
+      console.log('Initializing Leaflet map...');
+      
       // Initialize Leaflet map
       map.current = L.map(mapContainer.current).setView([-1.2921, 36.8219], 6); // Nairobi, Kenya
 
@@ -65,18 +59,25 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
         });
       });
 
+      console.log('Map initialized successfully');
       setIsMapInitialized(true);
     } catch (error) {
       console.error('Error initializing map:', error);
+      // Still set as initialized to prevent infinite loading
+      setIsMapInitialized(true);
     }
   };
 
   useEffect(() => {
-    initializeMap();
+    const timer = setTimeout(() => {
+      initializeMap();
+    }, 100); // Small delay to ensure DOM is ready
 
     return () => {
+      clearTimeout(timer);
       if (map.current) {
         map.current.remove();
+        map.current = null;
       }
     };
   }, []);
