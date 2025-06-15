@@ -37,18 +37,17 @@ const Index = () => {
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
-        {/* Mobile Menu Button - Only visible on mobile when sidebar is closed */}
-        <Button
-          onClick={() => setSidebarOpen(true)}
-          variant="outline"
-          size="sm"
-          className={`fixed top-16 left-2 z-40 lg:hidden bg-white shadow-lg ${
-            sidebarOpen ? 'hidden' : 'flex'
-          }`}
-        >
-          <Menu className="h-4 w-4" />
-          <span className="ml-1 text-xs">Projects</span>
-        </Button>
+        {/* Mobile Menu Button - More prominent and always visible on mobile */}
+        {!sidebarOpen && (
+          <Button
+            onClick={() => setSidebarOpen(true)}
+            className="fixed top-20 left-4 z-50 lg:hidden bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-lg"
+            size="sm"
+          >
+            <Menu className="h-4 w-4" />
+            <span className="ml-2 text-sm font-medium">Projects</span>
+          </Button>
+        )}
 
         {/* Mobile-responsive Project Sidebar */}
         <ProjectSidebar 
