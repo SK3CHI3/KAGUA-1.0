@@ -28,14 +28,14 @@ const Index = () => {
   console.log('Sidebar open:', sidebarOpen, 'Window width:', window.innerWidth);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
         {/* Enhanced Mobile Menu Button */}
         <Button
           onClick={() => setSidebarOpen(true)}
-          className={`fixed top-16 right-4 z-[999] bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-2xl border-2 border-white transition-all duration-300 transform hover:scale-105 active:scale-95 rounded-xl ${
+          className={`fixed top-16 right-4 z-[999] bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-2xl border-2 border-white dark:border-gray-800 transition-all duration-300 transform hover:scale-105 active:scale-95 rounded-xl ${
             sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden flex'
           }`}
           size="sm"
@@ -75,7 +75,7 @@ const Index = () => {
           <div className="sm:hidden">
             <button
               onClick={handleShowFeedbackModal}
-              className="fixed bottom-4 right-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white p-4 rounded-full shadow-2xl z-30 transition-all duration-300 transform hover:scale-110 active:scale-95 border-2 border-white"
+              className="fixed bottom-4 right-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white p-4 rounded-full shadow-2xl z-30 transition-all duration-300 transform hover:scale-110 active:scale-95 border-2 border-white dark:border-gray-800"
             >
               <Globe className="w-5 h-5" />
             </button>
