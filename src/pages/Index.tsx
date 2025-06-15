@@ -7,7 +7,8 @@ import { FloatingActionButton } from '@/components/FloatingActionButton';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { WebScrapingTool } from '@/components/WebScrapingTool';
 import { mockProjects } from '@/data/mockProjects';
-import { Globe } from 'lucide-react';
+import { Globe, Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -35,7 +36,20 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="relative flex h-[calc(100vh-4rem)]">
+      <div className="relative flex h-[calc(100vh-3.5rem)]">
+        {/* Mobile Menu Button - Only visible on mobile when sidebar is closed */}
+        <Button
+          onClick={() => setSidebarOpen(true)}
+          variant="outline"
+          size="sm"
+          className={`fixed top-16 left-2 z-40 lg:hidden bg-white shadow-lg ${
+            sidebarOpen ? 'hidden' : 'flex'
+          }`}
+        >
+          <Menu className="h-4 w-4" />
+          <span className="ml-1 text-xs">Projects</span>
+        </Button>
+
         {/* Mobile-responsive Project Sidebar */}
         <ProjectSidebar 
           isOpen={sidebarOpen}

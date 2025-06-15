@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, DollarSign, Users, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, DollarSign, Users, Star, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -54,7 +54,7 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
           : 'w-0 lg:w-12 overflow-hidden'
         }
       `}>
-        {/* Toggle Button */}
+        {/* Toggle Button - Enhanced for mobile */}
         <div className="flex justify-between items-center p-2 sm:p-4 border-b bg-white">
           <Button
             variant="ghost"
@@ -62,7 +62,14 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
             onClick={onToggle}
             className="p-2"
           >
-            {isOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+            {isOpen ? (
+              <>
+                <ChevronLeft className="h-4 w-4 hidden lg:block" />
+                <X className="h-4 w-4 lg:hidden" />
+              </>
+            ) : (
+              <ChevronRight className="h-4 w-4" />
+            )}
           </Button>
           {isOpen && (
             <h2 className="font-semibold text-gray-900 text-sm sm:text-base">
