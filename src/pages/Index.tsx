@@ -32,16 +32,16 @@ const Index = () => {
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
-        {/* Mobile Menu Button - Moved to right side */}
+        {/* Enhanced Mobile Menu Button */}
         <Button
           onClick={() => setSidebarOpen(true)}
-          className={`fixed top-16 right-4 z-[999] bg-green-600 hover:bg-green-700 text-white shadow-2xl border-2 border-white transition-all duration-200 ${
-            sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden block'
+          className={`fixed top-16 right-4 z-[999] bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-2xl border-2 border-white transition-all duration-300 transform hover:scale-105 active:scale-95 rounded-xl ${
+            sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden flex'
           }`}
           size="sm"
         >
           <Menu className="h-4 w-4" />
-          <span className="ml-2 text-sm font-medium">Projects</span>
+          <span className="ml-2 text-sm font-semibold tracking-wide">Projects</span>
         </Button>
 
         {/* Mobile-responsive Project Sidebar */}
@@ -71,11 +71,11 @@ const Index = () => {
             />
           </div>
           
-          {/* Mobile FAB - positioned differently on mobile */}
+          {/* Enhanced Mobile FAB */}
           <div className="sm:hidden">
             <button
               onClick={handleShowFeedbackModal}
-              className="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg z-30 transition-all duration-200"
+              className="fixed bottom-4 right-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white p-4 rounded-full shadow-2xl z-30 transition-all duration-300 transform hover:scale-110 active:scale-95 border-2 border-white"
             >
               <Globe className="w-5 h-5" />
             </button>

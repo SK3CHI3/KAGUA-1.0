@@ -1,164 +1,270 @@
 
-# Kagua - Government Projects Transparency Platform
+<div align="center">
 
-A React-based web application that provides transparency for government projects in Kenya, allowing citizens to view project details, provide feedback, and track government spending through an interactive map interface.
+# 🇰🇪 Kagua - Government Projects Transparency Platform
 
-## 🚀 Features
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-brightgreen?style=for-the-badge&logo=vercel)](https://5301a75f-5f06-4191-9e5c-4c7a625a4dcf.lovableproject.com)
+[![Built with Lovable](https://img.shields.io/badge/Built%20with-Lovable-ff69b4?style=for-the-badge&logo=heart)](https://lovable.dev)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
 
-- **Interactive Map**: View government projects plotted on a map of Kenya using Leaflet.js
-- **Project Filtering**: Filter projects by type (National vs County)
-- **Project Details**: Comprehensive information about each project including budget, status, and location
-- **Citizen Feedback**: Platform for citizens to provide feedback on projects
-- **Web Scraping Tool**: Extract project data from government websites
-- **Mobile Responsive**: Optimized for desktop, tablet, and mobile devices
-- **Real-time Updates**: Live project status and information updates
+*Empowering Kenyan citizens with transparent access to government project information*
 
-## 🛠️ Technology Stack
+![Kagua Preview](https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&h=600&fit=crop)
 
-- **Frontend**: React 18 with TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
-- **Maps**: Leaflet.js with OpenStreetMap tiles
-- **Routing**: React Router DOM
-- **Build Tool**: Vite
-- **Icons**: Lucide React
-- **State Management**: React hooks and context
-
-## 📱 Mobile Responsive Design
-
-Kagua is fully responsive and optimized for:
-- **Desktop**: Full sidebar and map interface
-- **Tablet**: Collapsible sidebar with touch-friendly controls
-- **Mobile**: Overlay sidebar, mobile-optimized popups, and touch gestures
-
-## 🏗️ Project Structure
-
-```
-kagua-citizen-map-kenya/
-├── src/
-│   ├── components/          # Reusable UI components
-│   │   ├── ui/             # shadcn/ui base components
-│   │   ├── Header.tsx      # Navigation header
-│   │   ├── MapView.tsx     # Interactive map component
-│   │   ├── ProjectSidebar.tsx # Project list and details
-│   │   └── ...
-│   ├── pages/              # Page components
-│   │   ├── Index.tsx       # Main dashboard
-│   │   ├── About.tsx       # About page
-│   │   ├── Contact.tsx     # Contact page
-│   │   └── Subscribe.tsx   # Newsletter subscription
-│   ├── data/               # Mock data and constants
-│   ├── utils/              # Utility functions
-│   └── hooks/              # Custom React hooks
-├── public/                 # Static assets
-├── DOCUMENTATION.md        # Detailed technical documentation
-└── README.md              # This file
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Modern web browser
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <YOUR_GIT_URL>
-   cd kagua-citizen-map-kenya
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:5173` to view the application
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-The built files will be in the `dist/` directory.
-
-## 📖 Usage
-
-### Viewing Projects
-1. Use the interactive map to explore government projects across Kenya
-2. Click on map markers to view project details
-3. Use the sidebar to browse all projects and filter by type
-
-### Project Information
-Each project displays:
-- Project title and description
-- Location (county and coordinates)
-- Budget allocation
-- Project status (Active, Completed, Planning)
-- Project type (National or County)
-- Start date and timeline
-- Citizen feedback and ratings
-
-### Mobile Usage
-- **Sidebar**: Tap the hamburger menu to open/close the project sidebar
-- **Map Navigation**: Use touch gestures to pan and zoom the map
-- **Project Selection**: Tap markers or project cards to view details
-- **Responsive Design**: Interface adapts to screen size automatically
-
-## 🎨 Design System
-
-### Color Scheme
-- **Primary Green**: Government/County projects (`#059669`)
-- **Primary Red**: National projects (`#dc2626`)
-- **Status Colors**: Active (`#16a34a`), Inactive (`#6b7280`)
-- **Background**: Light gray (`#f9fafb`)
-
-### Typography
-- **Headers**: Inter/System fonts
-- **Body**: System UI font stack
-- **Sizes**: Responsive text sizing (xs to 2xl)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow TypeScript best practices
-- Use Tailwind CSS for styling
-- Ensure mobile responsiveness
-- Add proper documentation
-- Test on multiple devices/browsers
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🔗 Links
-
-- **Live Demo**: [View Application](https://5301a75f-5f06-4191-9e5c-4c7a625a4dcf.lovableproject.com)
-- **Documentation**: See [DOCUMENTATION.md](DOCUMENTATION.md) for technical details
-- **Issues**: Report bugs and request features on GitHub
-
-## 📞 Support
-
-For support, questions, or contributions:
-- Create an issue on GitHub
-- Contact the development team
-- Check the documentation for technical details
+</div>
 
 ---
 
-**Built with ❤️ for government transparency in Kenya**
+## 🌟 What is Kagua?
+
+**Kagua** (Swahili for "inspect" or "examine") is a cutting-edge web platform that brings transparency to government projects across Kenya. Citizens can now easily access, monitor, and provide feedback on public projects through an intuitive interactive map interface.
+
+### ✨ Key Features
+
+<table>
+<tr>
+<td width="50%">
+
+🗺️ **Interactive Map Interface**
+- Visualize projects across Kenya
+- Click and explore with ease
+- Mobile-optimized navigation
+
+📊 **Comprehensive Project Data**
+- Budget allocations and spending
+- Project timelines and status
+- Location and scope details
+
+</td>
+<td width="50%">
+
+🏛️ **Government Transparency**
+- National and County project filtering
+- Real-time project status updates
+- Public spending accountability
+
+💬 **Citizen Engagement**
+- Submit feedback on projects
+- Rate project effectiveness
+- Community-driven insights
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 Live Demo & Screenshots
+
+<div align="center">
+
+### 🖥️ Desktop Experience
+![Desktop View](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop)
+
+### 📱 Mobile Experience  
+![Mobile View](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop)
+
+**[🌐 Try Kagua Live](https://5301a75f-5f06-4191-9e5c-4c7a625a4dcf.lovableproject.com)**
+
+</div>
+
+---
+
+## 🛠️ Technology Stack
+
+<div align="center">
+
+| Frontend | Styling | Maps | Build Tool | UI Components |
+|----------|---------|------|------------|---------------|
+| ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white&style=flat-square) | ![Tailwind](https://img.shields.io/badge/-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square) | ![Leaflet](https://img.shields.io/badge/-Leaflet-199900?logo=leaflet&logoColor=white&style=flat-square) | ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white&style=flat-square) | ![shadcn/ui](https://img.shields.io/badge/-shadcn/ui-000000?logo=shadcnui&logoColor=white&style=flat-square) |
+
+</div>
+
+### 🏗️ Architecture Highlights
+
+- **⚡ Lightning Fast**: Built with Vite for optimal development and build performance
+- **📱 Mobile First**: Responsive design that works seamlessly across all devices  
+- **🎨 Modern UI**: Beautiful components powered by shadcn/ui and Tailwind CSS
+- **🗺️ Interactive Maps**: Powered by Leaflet.js with OpenStreetMap integration
+- **🔍 Type Safe**: Full TypeScript implementation for robust development
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+<details>
+<summary>📋 System Requirements</summary>
+
+- **Node.js** 18+ 
+- **npm** or **yarn**
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+</details>
+
+### ⚡ Installation
+
+```bash
+# 1️⃣ Clone the repository
+git clone https://github.com/YOUR_USERNAME/kagua-citizen-map-kenya.git
+cd kagua-citizen-map-kenya
+
+# 2️⃣ Install dependencies
+npm install
+
+# 3️⃣ Start development server
+npm run dev
+
+# 4️⃣ Open your browser
+# Navigate to http://localhost:5173
+```
+
+### 🏗️ Build for Production
+
+```bash
+# Build optimized production bundle
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+---
+
+## 📱 Features Showcase
+
+### 🗺️ Interactive Project Mapping
+- **Dynamic Filtering**: Switch between National and County projects
+- **Project Details**: Click any marker for comprehensive project information
+- **Status Tracking**: Visual indicators for Active, Completed, and Planning phases
+
+### 📊 Transparency Dashboard
+- **Budget Visualization**: Clear breakdown of project allocations
+- **Timeline Tracking**: Monitor project progress from start to completion  
+- **Source Attribution**: Transparency in data sourcing and verification
+
+### 🤝 Citizen Engagement
+- **Feedback System**: Submit and view community feedback
+- **Rating System**: Rate projects based on community impact
+- **Mobile Optimized**: Seamless experience across all devices
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from developers, designers, and civic-minded individuals!
+
+### 🌟 How to Contribute
+
+<details>
+<summary>💻 For Developers</summary>
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+</details>
+
+<details>
+<summary>🎨 For Designers</summary>
+
+- Submit UI/UX improvements
+- Create better visualizations
+- Enhance mobile experience
+- Contribute icons and graphics
+
+</details>
+
+<details>
+<summary>📊 For Data Contributors</summary>
+
+- Help verify project information
+- Contribute additional data sources
+- Improve data accuracy
+- Suggest new data fields
+
+</details>
+
+### 📋 Development Guidelines
+
+- **Code Style**: Follow TypeScript and React best practices
+- **Mobile First**: Ensure all features work on mobile devices
+- **Accessibility**: Maintain WCAG compliance
+- **Testing**: Add tests for new features
+- **Documentation**: Update docs for any new functionality
+
+---
+
+## 📄 License & Usage
+
+<div align="center">
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://choosealicense.com/licenses/mit/)
+
+**Open Source • Free to Use • Built for the People**
+
+</div>
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🌍 Impact & Vision
+
+<div align="center">
+
+### 🎯 Our Mission
+*"To democratize access to government project information and foster transparency in public spending across Kenya"*
+
+### 📈 Project Goals
+- **Transparency**: Make government projects visible to all citizens
+- **Accountability**: Enable public oversight of project progress
+- **Engagement**: Create channels for citizen feedback and participation
+- **Data-Driven**: Support evidence-based policy discussions
+
+</div>
+
+---
+
+## 🔗 Connect & Support
+
+<div align="center">
+
+### 🌐 Links
+[![Website](https://img.shields.io/badge/Website-kagua.co.ke-blue?style=for-the-badge&logo=safari)](https://5301a75f-5f06-4191-9e5c-4c7a625a4dcf.lovableproject.com)
+[![Documentation](https://img.shields.io/badge/Docs-Read%20More-green?style=for-the-badge&logo=gitbook)](DOCUMENTATION.md)
+
+### 💬 Community
+[![Discussions](https://img.shields.io/badge/GitHub-Discussions-purple?style=for-the-badge&logo=github)](https://github.com/YOUR_USERNAME/kagua-citizen-map-kenya/discussions)
+[![Issues](https://img.shields.io/badge/Report-Issues-red?style=for-the-badge&logo=github)](https://github.com/YOUR_USERNAME/kagua-citizen-map-kenya/issues)
+
+### ⭐ Support the Project
+If Kagua is helping you or your community, please consider:
+- ⭐ **Starring** this repository
+- 🐛 **Reporting** bugs and issues  
+- 💡 **Suggesting** new features
+- 🤝 **Contributing** code or documentation
+- 📢 **Sharing** with others who might benefit
+
+</div>
+
+---
+
+<div align="center">
+
+### 🙏 Acknowledgments
+
+Built with ❤️ for government transparency in Kenya
+
+Special thanks to all contributors, the open-source community, and Kenyan citizens working toward greater transparency.
+
+---
+
+**Made in Kenya 🇰🇪 • Open Source Forever • Built with [Lovable](https://lovable.dev)**
+
+</div>
