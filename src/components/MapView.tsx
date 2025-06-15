@@ -31,7 +31,7 @@ export const MapView: React.FC<MapViewProps> = ({
     return amount.toString();
   };
 
-  // Create custom icons for different project types
+  // Create custom icons for different project types with simple colored pins
   const createCustomIcon = (projectType: string, status: string) => {
     const isNational = projectType === 'National';
     const baseColor = isNational ? '#1e40af' : '#059669'; // Blue for national, Green for county
@@ -39,28 +39,20 @@ export const MapView: React.FC<MapViewProps> = ({
     
     const iconHtml = `
       <div style="
-        width: 24px;
-        height: 24px;
-        border-radius: ${isNational ? '4px' : '50%'};
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
         background-color: ${statusColor};
         border: 3px solid white;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        font-weight: bold;
-        color: white;
-      ">
-        ${isNational ? 'N' : 'C'}
-      </div>
+      "></div>
     `;
 
     return L.divIcon({
       html: iconHtml,
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
-      popupAnchor: [0, -12],
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      popupAnchor: [0, -10],
       className: 'custom-marker'
     });
   };
@@ -239,11 +231,11 @@ export const MapView: React.FC<MapViewProps> = ({
         <h4 className="font-semibold text-sm mb-2">Project Types</h4>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-600 rounded border-2 border-white shadow-sm flex items-center justify-center text-xs text-white font-bold">N</div>
+            <div className="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-sm"></div>
             <span className="text-xs">National Projects</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-600 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-xs text-white font-bold">C</div>
+            <div className="w-4 h-4 bg-green-600 rounded-full border-2 border-white shadow-sm"></div>
             <span className="text-xs">County Projects</span>
           </div>
         </div>
