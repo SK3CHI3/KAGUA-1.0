@@ -34,7 +34,7 @@ export const MapView: React.FC<MapViewProps> = ({
   // Create custom marker icons for different project types
   const createCustomIcon = (projectType: string, status: string) => {
     const isNational = projectType === 'National';
-    const baseColor = isNational ? '#1e40af' : '#059669'; // Blue for national, Green for county
+    const baseColor = isNational ? '#dc2626' : '#059669'; // Red for national, Green for county
     const statusColor = status === 'Active' ? baseColor : '#6b7280';
     
     const iconHtml = `
@@ -104,7 +104,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
       const statusColor = project.status === 'Active' ? '#16a34a' : '#6b7280';
       const formattedBudget = formatBudget(project.budget);
-      const projectTypeColor = project.projectType === 'National' ? '#1e40af' : '#059669';
+      const projectTypeColor = project.projectType === 'National' ? '#dc2626' : '#059669';
 
       marker.bindPopup(`
         <div style="padding: 8px; font-family: system-ui, sans-serif;">
@@ -253,7 +253,7 @@ export const MapView: React.FC<MapViewProps> = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <div className="w-4 h-5 relative">
-              <div className="w-4 h-4 bg-blue-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
+              <div className="w-4 h-4 bg-red-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
               <div className="w-1 h-1 bg-white rounded-full absolute top-1 left-1.5 z-10"></div>
             </div>
             <span className="text-xs">National Projects</span>
