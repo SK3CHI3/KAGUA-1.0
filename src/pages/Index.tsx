@@ -25,22 +25,24 @@ const Index = () => {
     setShowFeedbackModal(true);
   };
 
+  console.log('Sidebar open:', sidebarOpen, 'Window width:', window.innerWidth);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
-        {/* Mobile Menu Button - Fixed positioning above map content */}
-        {!sidebarOpen && (
-          <Button
-            onClick={() => setSidebarOpen(true)}
-            className="fixed top-20 left-4 z-[60] lg:hidden bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-lg"
-            size="sm"
-          >
-            <Menu className="h-4 w-4" />
-            <span className="ml-2 text-sm font-medium">Projects</span>
-          </Button>
-        )}
+        {/* Mobile Menu Button - Always visible on mobile when sidebar is closed */}
+        <Button
+          onClick={() => setSidebarOpen(true)}
+          className={`fixed top-16 left-4 z-[999] bg-green-600 hover:bg-green-700 text-white shadow-2xl border-2 border-white transition-all duration-200 ${
+            sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden block'
+          }`}
+          size="sm"
+        >
+          <Menu className="h-4 w-4" />
+          <span className="ml-2 text-sm font-medium">Projects</span>
+        </Button>
 
         {/* Mobile-responsive Project Sidebar */}
         <ProjectSidebar 
