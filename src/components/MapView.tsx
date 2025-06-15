@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -107,7 +106,7 @@ export const MapView: React.FC<MapViewProps> = ({
       const formattedBudget = formatBudget(project.budget);
       const projectTypeColor = project.projectType === 'National' ? '#dc2626' : '#059669';
 
-      marker.bindPopup(`
+      const popupContent = `
         <div style="padding: 8px; font-family: system-ui, sans-serif;">
           <h3 style="font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">${project.title}</h3>
           <p style="font-size: 12px; color: #666; margin: 0 0 4px 0;">${project.location.county}</p>
@@ -120,8 +119,24 @@ export const MapView: React.FC<MapViewProps> = ({
           </div>
           ${project.source ? `<p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">Source: ${project.source}</p>` : ''}
         </div>
-      `);
+      `;
 
+      marker.bindPopup(popupContent);
+
+      // Show popup on hover
+      marker.on('mouseover', function() {
+        this.openPopup();
+      });
+
+      // Hide popup when mouse leaves (with a small delay to prevent flickering)
+      marker.on('mouseout', function() {
+        const markerInstance = this;
+        setTimeout(() => {
+          markerInstance.closePopup();
+        }, 100);
+      });
+
+      // Keep the click event for selecting projects
       marker.on('click', () => {
         onProjectSelect(project);
       });
@@ -145,10 +160,10 @@ export const MapView: React.FC<MapViewProps> = ({
     try {
       console.log('Creating Leaflet map instance...');
       
-      // Initialize Leaflet map
+      // Initialize Leaflet map with better focus on Kenya
       map.current = L.map(mapContainer.current, {
-        center: [-1.2921, 36.8219], // Nairobi, Kenya
-        zoom: 6,
+        center: [-0.0236, 37.9062], // Center of Kenya
+        zoom: 7, // Increased zoom for better Kenya view
         zoomControl: true,
         scrollWheelZoom: true
       });
