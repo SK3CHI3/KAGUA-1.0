@@ -16,35 +16,44 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
   const [isMapInitialized, setIsMapInitialized] = useState(false);
 
   const initializeMap = () => {
-    if (!mapContainer.current || map.current) return;
+    console.log('Attempting to initialize map...');
+    console.log('Map container exists:', !!mapContainer.current);
+    console.log('Map already initialized:', !!map.current);
+    
+    if (!mapContainer.current || map.current) {
+      console.log('Skipping initialization - container missing or map already exists');
+      return;
+    }
 
     try {
-      console.log('Initializing Leaflet map...');
+      console.log('Creating Leaflet map instance...');
       
       // Initialize Leaflet map
-      map.current = L.map(mapContainer.current).setView([-1.2921, 36.8219], 6); // Nairobi, Kenya
+      map.current = L.map(mapContainer.current, {
+        center: [-1.2921, 36.8219], // Nairobi, Kenya
+        zoom: 6,
+        zoomControl: true,
+        scrollWheelZoom: true
+      });
+
+      console.log('Map instance created, adding tile layer...');
 
       // Add OpenStreetMap tiles
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
       }).addTo(map.current);
 
-      // Create custom green icon
-      const greenIcon = L.divIcon({
-        html: `<div style="background-color: #16a34a; width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
-          <div style="width: 8px; height: 8px; background-color: white; border-radius: 50%;"></div>
-        </div>`,
-        className: 'custom-marker',
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
-      });
+      console.log('Tile layer added, creating markers...');
 
-      // Add markers for mock projects
-      mockProjects.forEach((project) => {
-        const marker = L.marker(
-          [project.location.coordinates.lat, project.location.coordinates.lng],
-          { icon: greenIcon }
-        ).addTo(map.current!);
+      // Create simple markers (using default Leaflet markers)
+      mockProjects.forEach((project, index) => {
+        console.log(`Adding marker ${index + 1} for project:`, project.title);
+        
+        const marker = L.marker([
+          project.location.coordinates.lat,
+          project.location.coordinates.lng
+        ]).addTo(map.current!);
 
         marker.bindPopup(`
           <div style="padding: 8px; font-family: system-ui, sans-serif;">
@@ -59,23 +68,32 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
         });
       });
 
-      console.log('Map initialized successfully');
+      console.log('All markers added successfully');
       setIsMapInitialized(true);
+      console.log('Map initialization complete!');
+      
     } catch (error) {
       console.error('Error initializing map:', error);
+      console.error('Error details:', error.message);
       // Still set as initialized to prevent infinite loading
       setIsMapInitialized(true);
     }
   };
 
   useEffect(() => {
+    console.log('MapView useEffect triggered');
+    
+    // Wait for DOM to be ready
     const timer = setTimeout(() => {
+      console.log('Timer fired, calling initializeMap');
       initializeMap();
-    }, 100); // Small delay to ensure DOM is ready
+    }, 200); // Slightly longer delay
 
     return () => {
+      console.log('MapView cleanup');
       clearTimeout(timer);
       if (map.current) {
+        console.log('Removing existing map');
         map.current.remove();
         map.current = null;
       }
@@ -85,12 +103,15 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
   // Focus on selected project
   useEffect(() => {
     if (selectedProject && map.current) {
+      console.log('Focusing on selected project:', selectedProject.title);
       map.current.setView(
         [selectedProject.location.coordinates.lat, selectedProject.location.coordinates.lng],
         10
       );
     }
   }, [selectedProject]);
+
+  console.log('MapView render - isMapInitialized:', isMapInitialized);
 
   if (!isMapInitialized) {
     return (
