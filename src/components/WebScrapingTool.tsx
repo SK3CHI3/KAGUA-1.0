@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { FirecrawlService } from '@/utils/FirecrawlService';
 import { extractProjectsFromScrapedData } from '@/utils/projectExtractor';
-import { Globe, Key, Plus, Trash2 } from 'lucide-react';
+import { Globe, Key, Plus, Trash2, TestTube } from 'lucide-react';
 
 interface WebScrapingToolProps {
   onProjectsExtracted: (projects: any[]) => void;
@@ -18,6 +18,7 @@ export const WebScrapingTool: React.FC<WebScrapingToolProps> = ({ onProjectsExtr
   const [apiKey, setApiKey] = useState(FirecrawlService.getApiKey() || '');
   const [urls, setUrls] = useState<string[]>(['']);
   const [isLoading, setIsLoading] = useState(false);
+  const [isTesting, setIsTesting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [scrapedProjects, setScrapedProjects] = useState<any[]>([]);
 
@@ -33,6 +34,34 @@ export const WebScrapingTool: React.FC<WebScrapingToolProps> = ({ onProjectsExtr
     const newUrls = [...urls];
     newUrls[index] = value;
     setUrls(newUrls);
+  };
+
+  const testConnection = async () => {
+    setIsTesting(true);
+    try {
+      const result = await FirecrawlService.testConnection();
+      
+      if (result.success) {
+        toast({
+          title: "Connection Test Successful",
+          description: result.message,
+        });
+      } else {
+        toast({
+          title: "Connection Test Failed",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Test Error",
+        description: "Failed to test API connection",
+        variant: "destructive",
+      });
+    } finally {
+      setIsTesting(false);
+    }
   };
 
   const saveApiKey = async () => {
@@ -156,6 +185,17 @@ export const WebScrapingTool: React.FC<WebScrapingToolProps> = ({ onProjectsExtr
           />
           <Button onClick={saveApiKey} variant="outline">
             Save Key
+          </Button>
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            onClick={testConnection} 
+            variant="outline" 
+            disabled={isTesting}
+            className="flex items-center gap-2"
+          >
+            <TestTube className="w-4 h-4" />
+            {isTesting ? "Testing..." : "Test Connection"}
           </Button>
         </div>
         <p className="text-xs text-gray-600">
