@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MapView } from '@/components/MapView';
 import { ProjectSidebar } from '@/components/ProjectSidebar';
 import { Header } from '@/components/Header';
