@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -20,6 +19,17 @@ export const MapView: React.FC<MapViewProps> = ({
   const map = useRef<L.Map | null>(null);
   const markers = useRef<L.Marker[]>([]);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
+
+  const formatBudget = (amount: number) => {
+    if (amount >= 1000000000) {
+      return `${(amount / 1000000000).toFixed(1)}B`;
+    } else if (amount >= 1000000) {
+      return `${(amount / 1000000).toFixed(1)}M`;
+    } else if (amount >= 1000) {
+      return `${(amount / 1000).toFixed(1)}K`;
+    }
+    return amount.toString();
+  };
 
   const clearMarkers = () => {
     markers.current.forEach(marker => {
@@ -43,11 +53,17 @@ export const MapView: React.FC<MapViewProps> = ({
         project.location.coordinates.lng
       ]).addTo(map.current!);
 
+      const statusColor = project.status === 'Active' ? '#16a34a' : '#6b7280';
+      const formattedBudget = formatBudget(project.budget);
+
       marker.bindPopup(`
         <div style="padding: 8px; font-family: system-ui, sans-serif;">
           <h3 style="font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">${project.title}</h3>
           <p style="font-size: 12px; color: #666; margin: 0 0 4px 0;">${project.location.county}</p>
-          <p style="font-size: 12px; font-weight: 500; color: #16a34a; margin: 0;">KES ${project.budget.toLocaleString()}</p>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <p style="font-size: 12px; font-weight: 500; color: #16a34a; margin: 0;">KES ${formattedBudget}</p>
+            <span style="font-size: 10px; padding: 2px 6px; background-color: ${statusColor}; color: white; border-radius: 12px; font-weight: 500;">${project.status}</span>
+          </div>
           ${project.source ? `<p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">Source: ${project.source}</p>` : ''}
         </div>
       `);
