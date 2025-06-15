@@ -4,8 +4,21 @@ import { Header } from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Users, Code, Github, Heart, Globe, Eye, Shield, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
+  const handleGitHubClick = () => {
+    window.open('https://github.com/kagua-platform/kagua', '_blank', 'noopener,noreferrer');
+  };
+
+  const handleDiscordClick = () => {
+    window.open('https://discord.gg/kagua', '_blank', 'noopener,noreferrer');
+  };
+
+  const handleDocsClick = () => {
+    window.open('https://docs.kagua.co.ke', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       <Header />
@@ -199,14 +212,25 @@ const About = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2">
+                <Button 
+                  className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+                  onClick={handleGitHubClick}
+                >
                   <Github className="w-4 h-4" />
                   View on GitHub
                 </Button>
-                <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
+                <Button 
+                  variant="outline" 
+                  className="border-green-600 text-green-600 hover:bg-green-50"
+                  onClick={handleDiscordClick}
+                >
                   Join Our Discord
                 </Button>
-                <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
+                <Button 
+                  variant="outline" 
+                  className="border-green-600 text-green-600 hover:bg-green-50"
+                  onClick={handleDocsClick}
+                >
                   Read Contributing Guide
                 </Button>
               </div>
@@ -251,12 +275,16 @@ const About = () => {
               there's a place for you in the Kagua community.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                Contact Us
-              </Button>
-              <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                Subscribe to Updates
-              </Button>
+              <Link to="/contact">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  Contact Us
+                </Button>
+              </Link>
+              <Link to="/subscribe">
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+                  Subscribe to Updates
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>

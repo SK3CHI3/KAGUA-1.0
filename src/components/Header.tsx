@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { MapPin, Search, Menu } from 'lucide-react';
+import { MapPin, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation } from 'react-router-dom';
+import { MenuDropdown } from './MenuDropdown';
 
 export const Header = () => {
   const location = useLocation();
@@ -54,10 +55,7 @@ export const Header = () => {
               </Button>
             </Link>
             
-            <Button variant="outline" size="sm" className="border-green-200 text-green-700 hover:bg-green-50">
-              <Menu className="h-4 w-4 sm:mr-2" />
-              <span className="hidden sm:inline">Menu</span>
-            </Button>
+            <MenuDropdown />
           </div>
         </div>
       </div>
