@@ -72,7 +72,7 @@ export class FirecrawlService {
       console.log('Scrape successful:', scrapeResponse);
       return { 
         success: true,
-        data: scrapeResponse.data 
+        data: scrapeResponse
       };
     } catch (error) {
       console.error('Error during scrape:', error);

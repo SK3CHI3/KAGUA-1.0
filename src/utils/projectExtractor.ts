@@ -34,12 +34,24 @@ const COUNTY_COORDINATES = {
 export function extractProjectsFromScrapedData(scrapedData: any, sourceUrl: string): ExtractedProject[] {
   const projects: ExtractedProject[] = [];
   
-  if (!scrapedData || !scrapedData.markdown) {
-    console.log('No markdown data found in scraped content');
+  if (!scrapedData) {
+    console.log('No scraped data found');
     return projects;
   }
 
-  const markdown = scrapedData.markdown.toLowerCase();
+  // Handle the response structure from Firecrawl
+  let markdown = '';
+  if (scrapedData.markdown) {
+    markdown = scrapedData.markdown.toLowerCase();
+  } else if (scrapedData.data && scrapedData.data.markdown) {
+    markdown = scrapedData.data.markdown.toLowerCase();
+  } else if (typeof scrapedData === 'string') {
+    markdown = scrapedData.toLowerCase();
+  } else {
+    console.log('Could not find markdown content in scraped data');
+    return projects;
+  }
+
   const lines = markdown.split('\n');
   
   // Look for project-related keywords and patterns

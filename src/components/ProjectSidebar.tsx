@@ -4,9 +4,22 @@ import { ChevronLeft, ChevronRight, Calendar, DollarSign, Users, Star } from 'lu
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { mockProjects } from '@/data/mockProjects';
 
-export const ProjectSidebar = ({ isOpen, onToggle, selectedProject, onProjectSelect }) => {
+interface ProjectSidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  selectedProject: any;
+  onProjectSelect: (project: any) => void;
+  projects: any[];
+}
+
+export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({ 
+  isOpen, 
+  onToggle, 
+  selectedProject, 
+  onProjectSelect,
+  projects
+}) => {
   return (
     <div className={`bg-white border-r border-gray-200 transition-all duration-300 ${isOpen ? 'w-96' : 'w-12'}`}>
       {/* Toggle Button */}
@@ -30,11 +43,13 @@ export const ProjectSidebar = ({ isOpen, onToggle, selectedProject, onProjectSel
           <div className="p-4 bg-gray-50 border-b">
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{mockProjects.length}</div>
+                <div className="text-2xl font-bold text-green-600">{projects.length}</div>
                 <div className="text-xs text-gray-600">Total Projects</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">12</div>
+                <div className="text-2xl font-bold text-blue-600">
+                  {projects.filter(p => p.status === 'Active').length}
+                </div>
                 <div className="text-xs text-gray-600">Active</div>
               </div>
             </div>
@@ -42,7 +57,7 @@ export const ProjectSidebar = ({ isOpen, onToggle, selectedProject, onProjectSel
 
           {/* Project List */}
           <div className="p-4 space-y-4">
-            {mockProjects.map((project) => (
+            {projects.map((project) => (
               <Card 
                 key={project.id}
                 className={`cursor-pointer transition-all hover:shadow-md ${
@@ -83,6 +98,11 @@ export const ProjectSidebar = ({ isOpen, onToggle, selectedProject, onProjectSel
                         <span className="text-xs ml-1">{project.rating || 'N/A'}</span>
                       </div>
                     </div>
+                    {project.source && (
+                      <div className="text-xs text-gray-500 italic">
+                        Source: {project.source}
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
