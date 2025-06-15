@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -33,10 +32,9 @@ export const MapView: React.FC<MapViewProps> = ({
   };
 
   // Create custom marker icons for different project types
-  const createCustomIcon = (projectType: string, status: string) => {
+  const createCustomIcon = (projectType: string) => {
     const isNational = projectType === 'National';
     const baseColor = isNational ? '#dc2626' : '#059669'; // Red for national, Green for county
-    const statusColor = status === 'Active' ? baseColor : '#6b7280';
     
     const iconHtml = `
       <div style="
@@ -50,7 +48,7 @@ export const MapView: React.FC<MapViewProps> = ({
         <div style="
           width: 24px;
           height: 24px;
-          background-color: ${statusColor};
+          background-color: ${baseColor};
           border: 2px solid white;
           border-radius: 50% 50% 50% 0;
           transform: rotate(-45deg);
@@ -96,7 +94,7 @@ export const MapView: React.FC<MapViewProps> = ({
     projects.forEach((project, index) => {
       console.log(`Adding marker ${index + 1} for project:`, project.title);
       
-      const customIcon = createCustomIcon(project.projectType || 'County', project.status);
+      const customIcon = createCustomIcon(project.projectType || 'County');
       
       const marker = L.marker([
         project.location.coordinates.lat,
@@ -129,7 +127,7 @@ export const MapView: React.FC<MapViewProps> = ({
         this.openPopup();
       });
 
-      // Hide popup when mouse leaves (with a small delay to prevent flickering)
+      // Hide popup when mouse leaves
       marker.on('mouseout', function() {
         const markerInstance = this;
         setTimeout(() => {
