@@ -122,16 +122,16 @@
     --tw-ring-color: hsl(142 76% 36% / 0.5);
   }
 
-  /* Better text contrast in dark mode */
+  /* Better text contrast in dark mode - using direct colors to avoid circular dependencies */
   .dark .text-gray-600 {
-    @apply text-gray-300;
+    color: rgb(209 213 219); /* gray-300 equivalent */
   }
 
   .dark .text-gray-500 {
-    @apply text-gray-400;
+    color: rgb(156 163 175); /* gray-400 equivalent */
   }
 
   .dark .text-gray-400 {
-    @apply text-gray-500;
+    color: rgb(107 114 128); /* gray-500 equivalent */
   }
 }
