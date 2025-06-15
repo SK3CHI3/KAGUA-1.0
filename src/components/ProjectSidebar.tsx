@@ -12,6 +12,7 @@ interface ProjectSidebarProps {
   selectedProject: any;
   onProjectSelect: (project: any) => void;
   projects: any[];
+  onShowFeedbackModal: () => void;
 }
 
 export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({ 
@@ -19,7 +20,8 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
   onToggle, 
   selectedProject, 
   onProjectSelect,
-  projects
+  projects,
+  onShowFeedbackModal
 }) => {
   return (
     <div className={`bg-white border-r border-gray-200 transition-all duration-300 ${isOpen ? 'w-96' : 'w-12'}`}>
@@ -48,6 +50,7 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
               <ProjectDetails 
                 project={selectedProject} 
                 onClose={() => onProjectSelect(null)} 
+                onAddFeedback={onShowFeedbackModal}
               />
             </div>
           ) : (

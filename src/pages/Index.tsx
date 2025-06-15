@@ -20,6 +20,10 @@ const Index = () => {
     setShowScrapingTool(false);
   };
 
+  const handleShowFeedbackModal = () => {
+    setShowFeedbackModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -32,6 +36,7 @@ const Index = () => {
           selectedProject={selectedProject}
           onProjectSelect={setSelectedProject}
           projects={allProjects}
+          onShowFeedbackModal={handleShowFeedbackModal}
         />
         
         {/* Main Map View */}
@@ -59,7 +64,7 @@ const Index = () => {
           
           {/* Floating Action Button */}
           <FloatingActionButton 
-            onClick={() => setShowFeedbackModal(true)}
+            onClick={handleShowFeedbackModal}
           />
         </div>
       </div>

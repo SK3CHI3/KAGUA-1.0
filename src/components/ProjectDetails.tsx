@@ -3,14 +3,15 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, DollarSign, MapPin, Star, Users, MessageSquare, ExternalLink } from 'lucide-react';
+import { Calendar, DollarSign, MapPin, Star, Users, MessageSquare, ExternalLink, Plus } from 'lucide-react';
 
 interface ProjectDetailsProps {
   project: any;
   onClose: () => void;
+  onAddFeedback: () => void;
 }
 
-export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose }) => {
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose, onAddFeedback }) => {
   if (!project) return null;
 
   return (
@@ -92,15 +93,25 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose
       </Card>
 
       {/* Comments/Feedback Section */}
-      {project.feedback && project.feedback.length > 0 && (
-        <Card>
-          <CardHeader className="pb-3">
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex justify-between items-center">
             <CardTitle className="text-base flex items-center">
               <MessageSquare className="h-4 w-4 mr-2" />
-              Community Feedback ({project.feedback.length})
+              Community Feedback ({project.feedback?.length || 0})
             </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
+            <Button 
+              size="sm" 
+              onClick={onAddFeedback}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              <Plus className="h-4 w-4 mr-1" />
+              Add Feedback
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          {project.feedback && project.feedback.length > 0 ? (
             <div className="space-y-3 max-h-64 overflow-y-auto">
               {project.feedback.map((comment: any, index: number) => (
                 <div key={index} className="border-l-2 border-gray-200 pl-3">
@@ -120,9 +131,14 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
-      )}
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
+              <p className="text-sm">No feedback yet. Be the first to share your thoughts!</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
