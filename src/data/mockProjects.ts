@@ -15,21 +15,22 @@ export const mockProjects = [
     category: "Infrastructure",
     contractor: "China Road & Bridge Corporation",
     rating: 4.2,
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop",
+    source: "Ministry of Transport",
     feedback: [
       {
         id: 1,
+        user: "Anonymous Citizen",
         rating: 4,
         comment: "Good progress so far, but traffic management during construction needs improvement",
-        date: "2024-03-10",
-        anonymous: true
+        date: "2024-03-10"
       },
       {
         id: 2,
+        user: "James Mwangi",
         rating: 5,
         comment: "Excellent project that will boost economic development",
-        date: "2024-03-15",
-        anonymous: false,
-        author: "James Mwangi"
+        date: "2024-03-15"
       }
     ]
   },
@@ -48,6 +49,8 @@ export const mockProjects = [
     category: "Water & Sanitation",
     contractor: "TBD",
     rating: null,
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop",
+    source: "Ministry of Water",
     feedback: []
   },
   {
@@ -65,13 +68,15 @@ export const mockProjects = [
     category: "Infrastructure",
     contractor: "China Communications Construction Company",
     rating: 3.8,
+    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=600&fit=crop",
+    source: "Kenya Ports Authority",
     feedback: [
       {
         id: 3,
+        user: "Anonymous Resident",
         rating: 4,
         comment: "Great for economic growth but environmental impact concerns",
-        date: "2024-02-20",
-        anonymous: true
+        date: "2024-02-20"
       }
     ]
   },
@@ -90,14 +95,15 @@ export const mockProjects = [
     category: "Energy",
     contractor: "Kenya Power & Lighting Company",
     rating: 4.7,
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop",
+    source: "Ministry of Energy",
     feedback: [
       {
         id: 4,
+        user: "Mary Ekwom",
         rating: 5,
         comment: "Life-changing project for our community. Excellent execution!",
-        date: "2024-03-05",
-        anonymous: false,
-        author: "Mary Ekwom"
+        date: "2024-03-05"
       }
     ]
   },
@@ -116,20 +122,22 @@ export const mockProjects = [
     category: "Healthcare",
     contractor: "Syno Hydro Corporation",
     rating: 2.1,
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop",
+    source: "Ministry of Health",
     feedback: [
       {
         id: 5,
+        user: "Anonymous Citizen",
         rating: 2,
         comment: "Project is significantly delayed with no clear communication on progress",
-        date: "2024-03-12",
-        anonymous: true
+        date: "2024-03-12"
       },
       {
         id: 6,
+        user: "Anonymous Resident",
         rating: 1,
         comment: "Very disappointed with the lack of transparency and frequent delays",
-        date: "2024-03-18",
-        anonymous: true
+        date: "2024-03-18"
       }
     ]
   }
