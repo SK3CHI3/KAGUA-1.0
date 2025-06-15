@@ -7,6 +7,7 @@ import { FloatingActionButton } from '@/components/FloatingActionButton';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { WebScrapingTool } from '@/components/WebScrapingTool';
 import { mockProjects } from '@/data/mockProjects';
+import { Globe } from 'lucide-react';
 
 const Index = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -47,17 +48,18 @@ const Index = () => {
             projects={allProjects}
           />
           
-          {/* Scraping Tool Button */}
+          {/* Scraping Tool Button - Enhanced visibility */}
           <button
             onClick={() => setShowScrapingTool(!showScrapingTool)}
-            className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-20"
+            className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg shadow-xl border-2 border-white flex items-center gap-2 z-30 font-semibold transition-all duration-200 hover:scale-105"
           >
+            <Globe className="w-5 h-5" />
             <span>Web Scraping</span>
           </button>
 
           {/* Web Scraping Tool Panel */}
           {showScrapingTool && (
-            <div className="absolute top-16 right-4 w-96 max-h-[calc(100vh-8rem)] overflow-y-auto z-20">
+            <div className="absolute top-20 right-4 w-96 max-h-[calc(100vh-8rem)] overflow-y-auto z-30 shadow-2xl">
               <WebScrapingTool onProjectsExtracted={handleProjectsExtracted} />
             </div>
           )}
