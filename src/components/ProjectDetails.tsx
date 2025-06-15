@@ -14,6 +14,12 @@ interface ProjectDetailsProps {
 export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose, onAddFeedback }) => {
   if (!project) return null;
 
+  const handleMoreInfoClick = () => {
+    if (project.sourceUrl) {
+      window.open(project.sourceUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Project Header */}
@@ -89,6 +95,20 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ project, onClose
               </div>
             )}
           </div>
+
+          {/* More Info Button */}
+          {project.sourceUrl && (
+            <div className="mt-4">
+              <Button 
+                onClick={handleMoreInfoClick}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+                size="sm"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                More Info - Visit Official Page
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
