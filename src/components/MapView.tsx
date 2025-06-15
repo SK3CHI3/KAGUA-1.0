@@ -31,7 +31,7 @@ export const MapView: React.FC<MapViewProps> = ({
     return amount.toString();
   };
 
-  // Create custom icons for different project types with simple colored pins
+  // Create custom marker icons for different project types
   const createCustomIcon = (projectType: string, status: string) => {
     const isNational = projectType === 'National';
     const baseColor = isNational ? '#1e40af' : '#059669'; // Blue for national, Green for county
@@ -39,20 +39,41 @@ export const MapView: React.FC<MapViewProps> = ({
     
     const iconHtml = `
       <div style="
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: ${statusColor};
-        border: 3px solid white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      "></div>
+        width: 24px;
+        height: 32px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <div style="
+          width: 24px;
+          height: 24px;
+          background-color: ${statusColor};
+          border: 2px solid white;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          position: absolute;
+          top: 0;
+        "></div>
+        <div style="
+          width: 8px;
+          height: 8px;
+          background-color: white;
+          border-radius: 50%;
+          position: absolute;
+          top: 6px;
+          z-index: 1;
+        "></div>
+      </div>
     `;
 
     return L.divIcon({
       html: iconHtml,
-      iconSize: [20, 20],
-      iconAnchor: [10, 10],
-      popupAnchor: [0, -10],
+      iconSize: [24, 32],
+      iconAnchor: [12, 32],
+      popupAnchor: [0, -32],
       className: 'custom-marker'
     });
   };
@@ -231,11 +252,17 @@ export const MapView: React.FC<MapViewProps> = ({
         <h4 className="font-semibold text-sm mb-2">Project Types</h4>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-sm"></div>
+            <div className="w-4 h-5 relative">
+              <div className="w-4 h-4 bg-blue-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
+              <div className="w-1 h-1 bg-white rounded-full absolute top-1 left-1.5 z-10"></div>
+            </div>
             <span className="text-xs">National Projects</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-600 rounded-full border-2 border-white shadow-sm"></div>
+            <div className="w-4 h-5 relative">
+              <div className="w-4 h-4 bg-green-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
+              <div className="w-1 h-1 bg-white rounded-full absolute top-1 left-1.5 z-10"></div>
+            </div>
             <span className="text-xs">County Projects</span>
           </div>
         </div>
