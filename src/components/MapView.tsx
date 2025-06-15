@@ -8,12 +8,59 @@ import { MapPin } from 'lucide-react';
 interface MapViewProps {
   selectedProject: any;
   onProjectSelect: (project: any) => void;
+  projects?: any[];
 }
 
-export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSelect }) => {
+export const MapView: React.FC<MapViewProps> = ({ 
+  selectedProject, 
+  onProjectSelect, 
+  projects = mockProjects 
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
+  const markers = useRef<L.Marker[]>([]);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
+
+  const clearMarkers = () => {
+    markers.current.forEach(marker => {
+      if (map.current) {
+        map.current.removeLayer(marker);
+      }
+    });
+    markers.current = [];
+  };
+
+  const addMarkers = () => {
+    if (!map.current) return;
+    
+    console.log(`Adding ${projects.length} markers to map`);
+    
+    projects.forEach((project, index) => {
+      console.log(`Adding marker ${index + 1} for project:`, project.title);
+      
+      const marker = L.marker([
+        project.location.coordinates.lat,
+        project.location.coordinates.lng
+      ]).addTo(map.current!);
+
+      marker.bindPopup(`
+        <div style="padding: 8px; font-family: system-ui, sans-serif;">
+          <h3 style="font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">${project.title}</h3>
+          <p style="font-size: 12px; color: #666; margin: 0 0 4px 0;">${project.location.county}</p>
+          <p style="font-size: 12px; font-weight: 500; color: #16a34a; margin: 0;">KES ${project.budget.toLocaleString()}</p>
+          ${project.source ? `<p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">Source: ${project.source}</p>` : ''}
+        </div>
+      `);
+
+      marker.on('click', () => {
+        onProjectSelect(project);
+      });
+
+      markers.current.push(marker);
+    });
+
+    console.log(`Successfully added ${markers.current.length} markers`);
+  };
 
   const initializeMap = () => {
     console.log('Attempting to initialize map...');
@@ -46,31 +93,11 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
 
       console.log('Tile layer added, creating markers...');
 
-      // Create simple markers (using default Leaflet markers)
-      mockProjects.forEach((project, index) => {
-        console.log(`Adding marker ${index + 1} for project:`, project.title);
-        
-        const marker = L.marker([
-          project.location.coordinates.lat,
-          project.location.coordinates.lng
-        ]).addTo(map.current!);
+      // Add markers for all projects
+      addMarkers();
 
-        marker.bindPopup(`
-          <div style="padding: 8px; font-family: system-ui, sans-serif;">
-            <h3 style="font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">${project.title}</h3>
-            <p style="font-size: 12px; color: #666; margin: 0 0 4px 0;">${project.location.county}</p>
-            <p style="font-size: 12px; font-weight: 500; color: #16a34a; margin: 0;">KES ${project.budget.toLocaleString()}</p>
-          </div>
-        `);
-
-        marker.on('click', () => {
-          onProjectSelect(project);
-        });
-      });
-
-      console.log('All markers added successfully');
-      setIsMapInitialized(true);
       console.log('Map initialization complete!');
+      setIsMapInitialized(true);
       
     } catch (error) {
       console.error('Error initializing map:', error);
@@ -79,6 +106,15 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
       setIsMapInitialized(true);
     }
   };
+
+  // Update markers when projects change
+  useEffect(() => {
+    if (map.current && isMapInitialized) {
+      console.log('Projects updated, refreshing markers');
+      clearMarkers();
+      addMarkers();
+    }
+  }, [projects]);
 
   useEffect(() => {
     console.log('MapView useEffect triggered');
@@ -97,6 +133,7 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
     return () => {
       console.log('MapView cleanup');
       clearTimeout(timer);
+      clearMarkers();
       if (map.current) {
         console.log('Removing existing map');
         map.current.remove();
