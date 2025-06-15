@@ -142,13 +142,17 @@ export const MapView: React.FC<MapViewProps> = ({
     };
   }, []);
 
-  // Focus on selected project
+  // Focus on selected project with zoom
   useEffect(() => {
     if (selectedProject && map.current) {
       console.log('Focusing on selected project:', selectedProject.title);
       map.current.setView(
         [selectedProject.location.coordinates.lat, selectedProject.location.coordinates.lng],
-        10
+        14, // Increased zoom level for closer view
+        { 
+          animate: true,
+          duration: 1.5 
+        }
       );
     }
   }, [selectedProject]);
