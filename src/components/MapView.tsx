@@ -1,51 +1,111 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { mockProjects } from '@/data/mockProjects';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { MapPin } from 'lucide-react';
 
 export const MapView = ({ selectedProject, onProjectSelect }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
+  const [mapboxToken, setMapboxToken] = useState('');
+  const [isMapInitialized, setIsMapInitialized] = useState(false);
 
-  // Mock Kenya coordinates
-  const kenyaCenter = { lat: -1.2921, lng: 36.8219 };
+  const initializeMap = () => {
+    if (!mapContainer.current || !mapboxToken) return;
+
+    try {
+      mapboxgl.accessToken = mapboxToken;
+      
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [36.8219, -1.2921], // Nairobi, Kenya
+        zoom: 6,
+        pitch: 0,
+      });
+
+      // Add navigation controls
+      map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+      // Add markers for mock projects
+      mockProjects.forEach((project) => {
+        const marker = new mapboxgl.Marker({
+          color: '#16a34a',
+          scale: 0.8
+        })
+          .setLngLat([project.longitude, project.latitude])
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }).setHTML(
+              `<div class="p-2">
+                <h3 class="font-semibold text-sm">${project.title}</h3>
+                <p class="text-xs text-gray-600">${project.location}</p>
+                <p class="text-xs font-medium text-green-600">KES ${project.budget.toLocaleString()}</p>
+              </div>`
+            )
+          )
+          .addTo(map.current!);
+
+        marker.getElement().addEventListener('click', () => {
+          onProjectSelect(project);
+        });
+      });
+
+      setIsMapInitialized(true);
+    } catch (error) {
+      console.error('Error initializing map:', error);
+    }
+  };
 
   useEffect(() => {
-    // For now, we'll create a simple map placeholder
-    // In production, this would integrate with Mapbox or similar
-    console.log('Map would be initialized here with Kenya boundaries');
+    return () => {
+      map.current?.remove();
+    };
   }, []);
 
-  return (
-    <div className="w-full h-full relative bg-gradient-to-br from-green-50 to-blue-50">
-      <div ref={mapContainer} className="absolute inset-0 flex items-center justify-center">
-        <div className="text-center">
-          <div className="bg-white p-8 rounded-xl shadow-lg border">
+  if (!isMapInitialized) {
+    return (
+      <div className="w-full h-full bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-xl shadow-lg border max-w-md w-full mx-4">
+          <div className="text-center mb-6">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
+              <MapPin className="w-8 h-8 text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Interactive Map Coming Soon</h3>
-            <p className="text-gray-600">
-              This will display an interactive map of Kenya with all government projects marked by location.
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Enter Mapbox Token</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Get your free public token from{' '}
+              <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">
+                mapbox.com
+              </a>
             </p>
+          </div>
+          
+          <div className="space-y-4">
+            <Input
+              type="text"
+              placeholder="pk.eyJ1IjoieW91cnVzZXJuYW1lIiwi..."
+              value={mapboxToken}
+              onChange={(e) => setMapboxToken(e.target.value)}
+              className="w-full"
+            />
+            <Button 
+              onClick={initializeMap}
+              disabled={!mapboxToken}
+              className="w-full bg-green-600 hover:bg-green-700"
+            >
+              Load Interactive Map
+            </Button>
           </div>
         </div>
       </div>
-      
-      {/* Mock project markers overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        {mockProjects.slice(0, 5).map((project, index) => (
-          <div
-            key={project.id}
-            className="absolute w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-lg pointer-events-auto cursor-pointer hover:scale-110 transition-transform"
-            style={{
-              left: `${20 + index * 15}%`,
-              top: `${30 + index * 10}%`,
-            }}
-            onClick={() => onProjectSelect(project)}
-          />
-        ))}
-      </div>
+    );
+  }
+
+  return (
+    <div className="w-full h-full relative">
+      <div ref={mapContainer} className="absolute inset-0" />
     </div>
   );
 };
