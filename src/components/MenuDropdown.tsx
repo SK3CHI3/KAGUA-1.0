@@ -47,12 +47,12 @@ export const MenuDropdown = () => {
         <>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-black bg-opacity-20 z-[100]"
+            className="fixed inset-0 bg-black bg-opacity-20 z-[9999]"
             onClick={toggleMenu}
           />
           
           {/* Menu */}
-          <Card className="absolute right-0 top-full mt-2 w-56 shadow-lg z-[110] border-green-200 bg-white">
+          <Card className="absolute right-0 top-full mt-2 w-56 shadow-2xl z-[10000] border-green-200 bg-white">
             <CardContent className="p-2">
               <div className="md:hidden mb-3 pb-3 border-b border-gray-200">
                 <div className="relative">

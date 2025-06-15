@@ -15,6 +15,12 @@ const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showScrapingTool, setShowScrapingTool] = useState(false);
   const [allProjects, setAllProjects] = useState(mockProjects);
+  const [filter, setFilter] = useState<'All' | 'National' | 'County'>('All');
+
+  const filteredProjects = useMemo(() => {
+    if (filter === 'All') return allProjects;
+    return allProjects.filter(project => project.projectType === filter);
+  }, [allProjects, filter]);
 
   const handleProjectsExtracted = (newProjects: any[]) => {
     setAllProjects(prev => [...prev, ...newProjects]);
@@ -38,6 +44,8 @@ const Index = () => {
           onProjectSelect={setSelectedProject}
           projects={allProjects}
           onShowFeedbackModal={handleShowFeedbackModal}
+          filter={filter}
+          onFilterChange={setFilter}
         />
         
         {/* Main Map View */}
@@ -45,7 +53,7 @@ const Index = () => {
           <MapView 
             selectedProject={selectedProject}
             onProjectSelect={setSelectedProject}
-            projects={allProjects}
+            projects={filteredProjects}
           />
           
           {/* Scraping Tool Button - Enhanced visibility */}

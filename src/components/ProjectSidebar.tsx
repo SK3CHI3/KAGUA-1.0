@@ -14,6 +14,8 @@ interface ProjectSidebarProps {
   onProjectSelect: (project: any) => void;
   projects: any[];
   onShowFeedbackModal: () => void;
+  filter: 'All' | 'National' | 'County';
+  onFilterChange: (filter: 'All' | 'National' | 'County') => void;
 }
 
 export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({ 
@@ -22,10 +24,10 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
   selectedProject, 
   onProjectSelect,
   projects,
-  onShowFeedbackModal
+  onShowFeedbackModal,
+  filter,
+  onFilterChange
 }) => {
-  const [filter, setFilter] = useState<'All' | 'National' | 'County'>('All');
-
   const filteredProjects = useMemo(() => {
     if (filter === 'All') return projects;
     return projects.filter(project => project.projectType === filter);
@@ -89,7 +91,7 @@ export const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
               <div className="p-4 border-b">
                 <ProjectFilter
                   currentFilter={filter}
-                  onFilterChange={setFilter}
+                  onFilterChange={onFilterChange}
                   nationalCount={nationalCount}
                   countyCount={countyCount}
                 />
