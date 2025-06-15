@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -163,7 +164,7 @@ export const MapView: React.FC<MapViewProps> = ({
       // Initialize Leaflet map with better focus on Kenya
       map.current = L.map(mapContainer.current, {
         center: [-0.0236, 37.9062], // Center of Kenya
-        zoom: 7, // Increased zoom for better Kenya view
+        zoom: 6, // Reduced zoom to show all borders clearly
         zoomControl: true,
         scrollWheelZoom: true
       });
