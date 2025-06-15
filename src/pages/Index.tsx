@@ -32,10 +32,10 @@ const Index = () => {
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
-        {/* Mobile Menu Button - Always visible on mobile when sidebar is closed */}
+        {/* Mobile Menu Button - Moved to right side */}
         <Button
           onClick={() => setSidebarOpen(true)}
-          className={`fixed top-16 left-4 z-[999] bg-green-600 hover:bg-green-700 text-white shadow-2xl border-2 border-white transition-all duration-200 ${
+          className={`fixed top-16 right-4 z-[999] bg-green-600 hover:bg-green-700 text-white shadow-2xl border-2 border-white transition-all duration-200 ${
             sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden block'
           }`}
           size="sm"
