@@ -83,11 +83,16 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
   useEffect(() => {
     console.log('MapView useEffect triggered');
     
-    // Wait for DOM to be ready
-    const timer = setTimeout(() => {
-      console.log('Timer fired, calling initializeMap');
-      initializeMap();
-    }, 200); // Slightly longer delay
+    // Use requestAnimationFrame to ensure DOM is fully rendered
+    const initMap = () => {
+      requestAnimationFrame(() => {
+        console.log('requestAnimationFrame callback, calling initializeMap');
+        initializeMap();
+      });
+    };
+
+    // Small timeout + requestAnimationFrame for better reliability
+    const timer = setTimeout(initMap, 100);
 
     return () => {
       console.log('MapView cleanup');
@@ -113,27 +118,24 @@ export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSele
 
   console.log('MapView render - isMapInitialized:', isMapInitialized);
 
-  if (!isMapInitialized) {
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-xl shadow-lg border max-w-md w-full mx-4">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MapPin className="w-8 h-8 text-green-600" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Loading Map</h3>
-            <p className="text-sm text-gray-600">
-              Initializing interactive map with OpenStreetMap...
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full h-full relative">
-      <div ref={mapContainer} className="absolute inset-0" />
+      {!isMapInitialized && (
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center z-10">
+          <div className="bg-white p-8 rounded-xl shadow-lg border max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Loading Map</h3>
+              <p className="text-sm text-gray-600">
+                Initializing interactive map with OpenStreetMap...
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
     </div>
   );
 };
