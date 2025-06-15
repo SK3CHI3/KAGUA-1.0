@@ -1,6 +1,6 @@
 
 import React, { useRef, useEffect, useState } from 'react';
-import L from 'leaflet';
+import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { mockProjects } from '@/data/mockProjects';
 import { MapPin } from 'lucide-react';
@@ -13,7 +13,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-export const MapView = ({ selectedProject, onProjectSelect }) => {
+interface MapViewProps {
+  selectedProject: any;
+  onProjectSelect: (project: any) => void;
+}
+
+export const MapView: React.FC<MapViewProps> = ({ selectedProject, onProjectSelect }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
