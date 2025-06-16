@@ -53,7 +53,6 @@
 
 ---
 
-## 🚀 Live Demo & Screenshots
 
 <div align="center">
 
