@@ -1,3 +1,4 @@
+@import './components/ui/tooltip.css';
 
 @tailwind base;
 @tailwind components;
@@ -46,35 +47,34 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 240 10% 6%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 142 76% 36%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 142 76% 45%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 240 8% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 240 8% 15%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted-foreground: 240 5% 84.9%;
 
-    --accent: 240 8% 18%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 240 8% 20%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 8% 20%;
-    --input: 240 8% 20%;
-    --ring: 142 76% 36%;
+    --border: 240 8% 25%;
+    --input: 240 8% 25%;
+    --ring: 142 76% 45%;
 
     --sidebar-background: 240 10% 6%;
     --sidebar-foreground: 0 0% 95%;

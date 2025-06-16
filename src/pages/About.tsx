@@ -28,7 +28,7 @@ const About = () => {
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
             <div className="bg-gradient-to-br from-green-600 to-green-700 p-4 rounded-2xl shadow-lg">
-              <MapPin className="h-12 w-12 text-white" />
+              <Eye className="h-12 w-12 text-white" />
             </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent mb-4">

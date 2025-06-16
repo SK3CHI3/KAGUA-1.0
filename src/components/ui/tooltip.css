@@ -1,0 +1,17 @@
+@layer components {
+  .tooltip-card {
+    @apply absolute z-20 max-w-[20rem] rounded-[--radius] border bg-white/95 dark:bg-gray-900/95 p-3 shadow-lg;
+    @apply dark:border-gray-700/50 dark:text-white;
+    @apply backdrop-blur-sm;
+  }
+
+  .tooltip-card-content {
+    @apply text-sm font-medium text-gray-900 dark:text-white;
+  }
+
+  .dark .tooltip-card {
+    --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}

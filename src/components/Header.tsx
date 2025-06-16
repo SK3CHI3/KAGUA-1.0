@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { MenuDropdown } from './MenuDropdown';
 import { ThemeToggle } from './ThemeToggle';
@@ -14,7 +14,7 @@ export const Header = () => {
           <div className="flex items-center space-x-2 sm:space-x-3">
             <Link to="/" className="flex items-center space-x-2 sm:space-x-3 group">
               <div className="bg-gradient-to-br from-green-600 to-green-700 dark:from-green-500 dark:to-green-600 p-1.5 sm:p-2 rounded-lg shadow-md dark:shadow-green-900/20 group-hover:shadow-lg dark:group-hover:shadow-green-900/30 transition-all duration-200">
-                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
               <div>
                 <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-green-600 to-green-800 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent">

@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { MapView } from '@/components/MapView';
 import { ProjectSidebar } from '@/components/ProjectSidebar';
@@ -32,12 +31,23 @@ const Index = () => {
       <Header />
       
       <div className="relative flex h-[calc(100vh-3.5rem)]">
-        {/* Enhanced Mobile Menu Button */}
+        {/* Enhanced Mobile Menu Button with better visibility */}
         <Button
           onClick={() => setSidebarOpen(true)}
-          className={`fixed top-16 right-4 z-[999] bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 dark:from-green-500 dark:to-green-600 dark:hover:from-green-600 dark:hover:to-green-700 text-white shadow-2xl dark:shadow-green-900/30 border-2 border-white/20 dark:border-gray-700/50 transition-all duration-300 transform hover:scale-105 active:scale-95 rounded-xl backdrop-blur-sm ${
-            sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden flex'
-          }`}
+          className={`fixed top-16 right-4 z-[999] 
+            bg-gradient-to-r from-emerald-600 to-emerald-700 
+            hover:from-emerald-700 hover:to-emerald-800 
+            dark:from-emerald-500 dark:to-emerald-600 
+            dark:hover:from-emerald-600 dark:hover:to-emerald-700 
+            text-white font-medium
+            shadow-lg shadow-emerald-500/20 
+            dark:shadow-emerald-900/30 
+            border-2 border-white/30 
+            dark:border-emerald-400/20 
+            transition-all duration-300 
+            transform hover:scale-105 active:scale-95 
+            rounded-xl backdrop-blur-sm
+            ${sidebarOpen ? 'lg:hidden hidden' : 'lg:hidden flex'}`}
           size="sm"
         >
           <Menu className="h-4 w-4" />
@@ -56,26 +66,40 @@ const Index = () => {
           onFilterChange={setFilter}
         />
         
-        {/* Main Map View */}
-        <div className="flex-1 relative">
+        {/* Main Map View with contrast improvements */}
+        <div className="flex-1 relative z-0 bg-white dark:bg-gray-900">
           <MapView 
             selectedProject={selectedProject}
             onProjectSelect={setSelectedProject}
             projects={filteredProjects}
           />
           
-          {/* Mobile-responsive Floating Action Button */}
-          <div className="hidden sm:block">
+          {/* Desktop Floating Action Button with improved visibility */}
+          <div className="hidden sm:block z-[998]">
             <FloatingActionButton 
               onClick={handleShowFeedbackModal}
             />
           </div>
           
-          {/* Enhanced Mobile FAB */}
+          {/* Enhanced Mobile FAB with better visibility */}
           <div className="sm:hidden">
             <button
               onClick={handleShowFeedbackModal}
-              className="fixed bottom-4 right-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 dark:from-green-500 dark:to-green-600 dark:hover:from-green-600 dark:hover:to-green-700 text-white p-4 rounded-full shadow-2xl dark:shadow-green-900/30 z-30 transition-all duration-300 transform hover:scale-110 active:scale-95 border-2 border-white/20 dark:border-gray-700/50 backdrop-blur-sm"
+              className="fixed bottom-4 right-4 
+                bg-gradient-to-r from-emerald-600 to-emerald-700 
+                hover:from-emerald-700 hover:to-emerald-800 
+                dark:from-emerald-500 dark:to-emerald-600 
+                dark:hover:from-emerald-600 dark:hover:to-emerald-700 
+                text-white font-medium
+                p-4 rounded-full 
+                shadow-lg shadow-emerald-500/20 
+                dark:shadow-emerald-900/30 
+                z-[998] 
+                transition-all duration-300 
+                transform hover:scale-110 active:scale-95 
+                border-2 border-white/30 
+                dark:border-emerald-400/20 
+                backdrop-blur-sm"
             >
               <Globe className="w-5 h-5" />
             </button>

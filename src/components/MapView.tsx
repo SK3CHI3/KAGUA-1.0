@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -54,20 +53,22 @@ export const MapView: React.FC<MapViewProps> = ({
           width: ${iconSize}px;
           height: ${iconSize}px;
           background-color: ${baseColor};
-          border: 2px solid white;
+          border: 2.5px solid white;
           border-radius: 50% 50% 50% 0;
           transform: rotate(-45deg);
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.4);
           position: absolute;
           top: 0;
+          filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
         "></div>
         <div style="
-          width: ${iconSize * 0.33}px;
-          height: ${iconSize * 0.33}px;
+          width: ${iconSize * 0.4}px;
+          height: ${iconSize * 0.4}px;
           background-color: white;
           border-radius: 50%;
           position: absolute;
           top: ${iconSize * 0.25}px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
           z-index: 1;
         "></div>
       </div>
@@ -266,25 +267,60 @@ export const MapView: React.FC<MapViewProps> = ({
           </div>
         </div>
       )}
-      <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+      <div 
+        ref={mapContainer} 
+        className="w-full h-full absolute inset-0"
+        style={{ zIndex: 0 }}  // Ensure map stays below other elements
+      ></div>
       
-      {/* Mobile-responsive Map Legend */}
-      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 bg-white p-2 sm:p-3 rounded-lg shadow-lg border z-20 max-w-xs">
-        <h4 className="font-semibold text-xs sm:text-sm mb-1 sm:mb-2">Project Types</h4>
+      {/* Map Legend with improved dark mode visibility */}
+      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 
+        bg-white dark:bg-gray-900 
+        p-2 sm:p-3 
+        rounded-lg 
+        shadow-lg dark:shadow-black/30
+        border border-gray-200/80 dark:border-gray-800 
+        z-20 max-w-xs
+        backdrop-blur-sm">
+        <h4 className="font-semibold text-xs sm:text-sm mb-1 sm:mb-2 text-gray-900 dark:text-white">
+          Project Types
+        </h4>
         <div className="space-y-1 sm:space-y-2">
           <div className="flex items-center gap-1 sm:gap-2">
             <div className="w-3 h-4 sm:w-4 sm:h-5 relative flex-shrink-0">
-              <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
-              <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full absolute top-0.5 left-1 sm:top-1 sm:left-1.5 z-10"></div>
+              <div className="w-3 h-3 sm:w-4 sm:h-4 
+                bg-red-600 dark:bg-red-500
+                border-2 border-white dark:border-gray-900
+                rounded-full rounded-bl-none 
+                transform rotate-45 
+                shadow-sm"></div>
+              <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 
+                bg-white dark:bg-gray-900
+                rounded-full 
+                absolute top-0.5 left-1 sm:top-1 sm:left-1.5 
+                z-10"></div>
             </div>
-            <span className="text-xs">National Projects</span>
+            <span className="text-xs text-gray-900 dark:text-gray-100 font-medium">
+              National Projects
+            </span>
           </div>
           <div className="flex items-center gap-1 sm:gap-2">
             <div className="w-3 h-4 sm:w-4 sm:h-5 relative flex-shrink-0">
-              <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-600 border border-white rounded-full rounded-bl-none transform rotate-45 shadow-sm"></div>
-              <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full absolute top-0.5 left-1 sm:top-1 sm:left-1.5 z-10"></div>
+              <div className="w-3 h-3 sm:w-4 sm:h-4 
+                bg-emerald-600 dark:bg-emerald-500
+                border-2 border-white dark:border-gray-900
+                rounded-full rounded-bl-none 
+                transform rotate-45 
+                shadow-sm"></div>
+              <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 
+                bg-white dark:bg-gray-900
+                rounded-full 
+                absolute top-0.5 left-1 sm:top-1 sm:left-1.5 
+                z-10"></div>
             </div>
-            <span className="text-xs">County Projects</span>
+            <span className="text-xs text-gray-900 dark:text-gray-100 font-medium">
+              County Projects
+            </span>
           </div>
         </div>
       </div>
