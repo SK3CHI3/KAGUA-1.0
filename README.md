@@ -11,8 +11,6 @@
 
 *Empowering Kenyan citizens with transparent access to government project information*
 
-![Kagua Preview](https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&h=600&fit=crop)
-
 </div>
 
 ---
@@ -60,13 +58,7 @@
 
 <div align="center">
 
-### 🖥️ Desktop Experience
-![Desktop View](https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop)
 
-### 📱 Mobile Experience  
-![Mobile View](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop)
-
-**[🌐 Try Kagua Live](https://5301a75f-5f06-4191-9e5c-4c7a625a4dcf.lovableproject.com)**
 
 </div>
 
