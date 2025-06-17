@@ -255,5 +255,5 @@ Special thanks to all contributors, the open-source community, and Kenyan citize
 
 ---
 
-**Made in Kenya 🇰🇪 • Open Source Forever •
+**Made in Kenya 🇰🇪 • Open Source Forever 
 </div>
